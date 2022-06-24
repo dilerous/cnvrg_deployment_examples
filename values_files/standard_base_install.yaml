@@ -1,0 +1,10 @@
+---
+clusterDomain: "<wildcard-dns-domain>"
+
+controlPlane:
+  image: cnvrg/app:v3.12.17
+
+registry:
+  user: <registry-user>
+  password: "<registry-user-password>"
+

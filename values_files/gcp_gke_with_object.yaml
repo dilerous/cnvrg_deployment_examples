@@ -1,0 +1,18 @@
+---
+clusterDomain: "worker.dilerous.cloud"
+
+controlPlane:
+  image: cnvrg/app:v3.12.17
+  objectStorage:
+    type: gcp
+    gcpProject: <bucket-project>
+    gcpStorageSecret: <bucket-secret-key>
+    gcpKeyfileMountPath: <gcp-key-file>
+    gcpKeyfileName: <gcp-key-filename>
+    bucket: <name-of-bucket>
+    region: <bucket-region>
+
+registry:
+  user: <registry-user>
+  password: "<registry-user-password>"
+

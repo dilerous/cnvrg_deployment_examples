@@ -1,0 +1,14 @@
+---
+clusterDomain: "worker.dilerous.cloud"
+
+controlPlane:
+  image: cnvrg/app:v3.12.17
+  objectStorage:
+    type: aws
+    bucket: <name-of-s3-bucket>
+    region: <bucket-region>
+
+registry:
+  user: <registry-user>
+  password: "<registry-user-password>"
+
