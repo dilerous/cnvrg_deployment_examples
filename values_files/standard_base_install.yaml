@@ -6,5 +6,5 @@ controlPlane:
 
 registry:
   user: <registry-user>
-  password: "<registry-user-password>"
+  password: <registry-password>
 

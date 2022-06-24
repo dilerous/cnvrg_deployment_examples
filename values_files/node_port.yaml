@@ -1,0 +1,18 @@
+clusterDomain: <node-ip>
+
+networking:
+  ingressType: nodeport
+
+storage:
+  enabled: true
+  hostpath:
+    enabled: true
+    defaultSc:
+    nodeName: <k8s-node>
+
+controlPlane:
+  image: cnvrg/app:v3.12.17
+
+registry:
+  user: <registry-user>
+  password: <registry-password>
