@@ -1,7 +1,8 @@
 clusterDomain: <node-ip>
 
 networking:
-  ingressType: nodeport
+  ingress:
+    type: nodeport
   istio:
     enabled: false
 
