@@ -2,13 +2,8 @@ clusterDomain: <node-ip>
 
 networking:
   ingressType: nodeport
-
-storage:
-  enabled: true
-  hostpath:
-    enabled: true
-    defaultSc:
-    nodeName: <k8s-node>
+  istio:
+    enabled: false
 
 controlPlane:
   image: cnvrg/app:v3.12.17
