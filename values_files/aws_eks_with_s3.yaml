@@ -7,6 +7,8 @@ controlPlane:
     type: aws
     bucket: <name-of-s3-bucket>
     region: <bucket-region>
+    accessKey: <access-key> #Optional if eks cluster has arn:aws:iam::aws:policy/AmazonS3FullAccess
+    secretKey: <secret-key> #Optional if eks cluster has arn:aws:iam::aws:policy/AmazonS3FullAccess
 
 registry:
   user: <registry-user>
