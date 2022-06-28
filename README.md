@@ -34,6 +34,7 @@ Apply webhook yaml file to install godaddy webhook
 kubectl apply -f ./deploy/webhook-all.yml
 ```
 
+Go to ``https://developer.godaddy.com`` and create an API key and ID
 Put the key and id into the ``./worker_installs/secret.yml``
 
 Install Secret
