@@ -1,0 +1,13 @@
+registry:
+  user: admin
+  password: "123123"
+  url: "harbor.apps.cnvrg.io:80/cnvrg"
+imageHub: "harbor.apps.cnvrg.io:80/cnvrg"
+controlPlane:
+  image: harbor.apps.cnvrg.io:80/cnvrg/app:master-12319
+  mpi:
+    image: "harbor.apps.cnvrg.io:80/cnvrg/mpi-operator:v0.2.3"
+    registry:
+      url: "harbor.apps.cnvrg.io:80/cnvrg"
+      user: admin
+      password: "123123"
