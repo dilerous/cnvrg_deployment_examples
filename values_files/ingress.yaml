@@ -1,0 +1,36 @@
+---
+clusterDomain:
+
+controlPlane:
+  image: cnvrg/app:v4.7.6
+
+networking:
+  ingress:
+    type: ingress
+  istio:
+    enabled: false
+
+registry:
+  user: "cnvrghelm"
+  password: ""
+
+monitoring:
+  prometheusOperator:
+    enabled: false
+  prometheus:
+    enabled: false
+  dcgmExporter:
+    enabled: false
+  kubeStateMetrics:
+    enabled: false
+  nodeExporter:
+    enabled: false
+  defaultServiceMonitors:
+    enabled: false
+
+
+logging:
+  fluentbit:
+    enabled: false
+  elastalert:
+    enabled: false
