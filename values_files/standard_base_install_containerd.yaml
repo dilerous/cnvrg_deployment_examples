@@ -5,7 +5,7 @@ controlPlane:
   image: cnvrg/app:v3.12.17
   baseConfig:
     featureFlags:
-      CNVRG_MOUNT_HOST_FOLDERS: true
+      CNVRG_MOUNT_HOST_FOLDERS: false
 
 registry:
   user: <registry-user>
