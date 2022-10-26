@@ -9,6 +9,7 @@ The ruby script will create a new admin account and organization.
 #### **Note: You cannot make an account with the name "admin"
 
 1) Update the bootstrap.rb file with the username, email and organization.
+
 Example
 ```
 username="bsoper"
@@ -36,6 +37,7 @@ bash ./bootstrap.sh
 1) Add your registry using the Web UI.
 
 2) Update the change-registry.rb file with the organization and your new registry url.
+
 Example
 ```
 repourl="docker.io/cnvrg"
