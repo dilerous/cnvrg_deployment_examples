@@ -5,10 +5,10 @@
 This script will copy a ruby file to the running app pod in the cluster.
 The ruby script will create a new admin account and organization.
 
-####*Note: Make sure to create an account with a valid email address. You will need to reset the password.
-####**Note: You cannot make an account with the name "admin"
+#### *Note: Make sure to create an account with a valid email address. You will need to reset the password.
+#### **Note: You cannot make an account with the name "admin"
 
-1) Update the bootstrap.rb file with the username, email and organization
+1) Update the bootstrap.rb file with the username, email and organization.
 Example
 ```
 username="bsoper"
