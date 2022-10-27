@@ -1,0 +1,23 @@
+---
+clusterDomain: my.domain.cnvrg.me
+controlPlane:
+  image: cnvrg/app:v4.7.50
+  smtp:
+    domain: cnvrg.io
+    password: xxxx-x-x-x-x-x-xxx
+    port: 587
+    server: smtp.sendgrid.net
+    username: smtp-user
+
+sso:
+  enabled: true
+  adminUser: "bradley.soper@cnvrg.io"
+  provider: "oidc"
+  emailDomain: [cnvrg.io]
+  clientId: ""
+  clientSecret: ""
+  oidcIssuerUrl: "https://dev-7834334.okta.com"
+
+registry:
+  password: xxxxx-xxx-xxxx
+  user: cnvrghelm
