@@ -1,0 +1,32 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: brad-cnvrg-test-install
+  region: us-east-2
+  version: "1.22"
+
+availabilityZones: ['us-east-2a', 'us-east-2b']
+
+managedNodeGroups:
+- name: cnvrg-app-core
+  instanceType: m5a.2xlarge
+  volumeSize: 100
+  minSize: 1
+  maxSize: 3
+  desiredCapacity: 1
+  privateNetworking: true
+  iam:
+    attachPolicyARNs:
+    - arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+    - arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+    - arn:aws:iam::aws:policy/AmazonS3FullAccess  #you can create policy specfic for bucket created
+    - arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+    withAddonPolicies:
+      autoScaler: true
+  tags:
+    k8s.io/cluster-autoscaler/enabled: 'true'
+    k8s.io/cluster-autoscaler/brad-cnvrg-test-install: 'owned'
+    nodegroup-role: worker
+  availabilityZones: ['us-east-2a', 'us-east-2b']
+
