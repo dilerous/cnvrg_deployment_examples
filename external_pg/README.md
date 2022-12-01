@@ -6,7 +6,7 @@ dbs:
     enabled: false
 ```
 2. Create a secret with the Postgres details
-#Note: Ensure all of the values and base64 encoded
+# Note: Ensure all of the values and base64 encoded
 ```
 apiVersion: v1
 data:
