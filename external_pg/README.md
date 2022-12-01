@@ -5,8 +5,8 @@ dbs:
   pg:
     enabled: false
 ```
-2. Create a secret with the Postgres details
-##### Note: Ensure all of the values and base64 encoded
+2. Create a secret with the Postgres details. This secret will point to your external Postgres DB.
+##### Note: Ensure all of the values are base64 encoded.
 ```
 apiVersion: v1
 data:
