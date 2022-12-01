@@ -7,6 +7,7 @@ dbs:
 ```
 2. Create a secret with the Postgres details. This secret will point to your external Postgres DB.
 ##### Note: Ensure all of the values are base64 encoded.
+pg-creds.yaml
 ```
 apiVersion: v1
 data:
@@ -26,4 +27,8 @@ metadata:
   name: pg-creds
   namespace: cnvrg
 type: Opaque
+```
+3. Apply the new secret to configure cnvrg to point to your external Postgres DB.
+```
+kubectl apply -f pg-creds.yaml
 ```
