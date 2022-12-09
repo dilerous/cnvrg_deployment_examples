@@ -1,0 +1,60 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  generation: 1
+  labels:
+    app: hello-world
+  name: hello-world-vs
+  namespace: cnvrg
+spec:
+  gateways:
+  - istio-gw-cnvrg
+  hosts:
+  - hello.brad.apps.cnvrg.io
+  http:
+  - retries:
+      attempts: 5
+      perTryTimeout: 3600s
+    route:
+    - destination:
+        host: hello-world.cnvrg.svc.cluster.local
+        port:
+          number: 1234
+    timeout: 18000s
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-httpd
+  namespace: cnvrg
+  labels:
+    app: hello-world
+spec:
+  containers:
+    - name: cntr-httpd
+      image: httpd:latest
+      ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: hello-world
+  name: hello-world
+  namespace: cnvrg
+spec:
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: web
+    port: 1234
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: hello-world
+  sessionAffinity: None
+  type: ClusterIP
+status:
+  loadBalancer: {}

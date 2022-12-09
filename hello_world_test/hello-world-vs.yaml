@@ -1,0 +1,23 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  generation: 1
+  labels:
+    app: hello-world
+  name: hello-world-vs
+  namespace: cnvrg
+spec:
+  gateways:
+  - istio-gw-cnvrg
+  hosts:
+  - hello.brad.apps.cnvrg.io
+  http:
+  - retries:
+      attempts: 5
+      perTryTimeout: 3600s
+    route:
+    - destination:
+        host: hello-world.cnvrg.svc.cluster.local
+        port:
+          number: 1234
+    timeout: 18000s
