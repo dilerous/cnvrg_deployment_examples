@@ -14,7 +14,8 @@ Scale down the cnvrg control plane:
 kubectl -n cnvrg scale deploy/cnvrg-operator --replicas 0;
 kubectl -n cnvrg scale deploy/searchkiq --replicas 0;
 kubectl -n cnvrg scale deploy/app --replicas 0; 
-kubectl -n cnvrg scale deploy/istiod --replicas 0
+kubectl -n cnvrg scale deploy/istiod --replicas 0;
+kubectl -n cnvrg scale deploy/redis --replicas 0
 ```
 
 ---
@@ -329,5 +330,7 @@ Scale the control-plane up
 ```
 kubectl -n cnvrg scale deploy/cnvrg-operator --replicas 1;
 kubectl -n cnvrg scale deploy/searchkiq --replicas 1;
-kubectl -n cnvrg scale deploy/app --replicas 1
+kubectl -n cnvrg scale deploy/app --replicas 1;
+kubectl -n cnvrg scale deploy/istiod --replicas 1;
+kubectl -n cnvrg scale deploy/redis --replicas 1
 ```
