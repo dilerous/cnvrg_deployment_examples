@@ -338,9 +338,5 @@ Scale the control-plane up
 ```
 kubectl -n cnvrg scale deploy/cnvrg-operator --replicas 1;
 kubectl -n cnvrg scale deploy/searchkiq --replicas 1;
-kubectl -n cnvrg scale deploy/app --replicas 1;
-kubectl -n cnvrg scale deploy/istiod --replicas 1;
-kubectl -n cnvrg scale deploy/redis --replicas 1;
-kubectl -n cnvrg scale deploy/cnvrg-ingressgateway --replicas 1;
-kubectl -n cnvrg scale deploy/systemkiq --replicas 1
+kubectl -n cnvrg scale deploy/app --replicas 1
 ```
