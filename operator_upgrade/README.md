@@ -68,6 +68,12 @@ scp -i "<rsa-key>" <username>@<machine-name-or-ip>:/opt/app-root/src/cnvrg-db-ba
 ```
 
 ## Redis Backup
+Note* This is optional as there are no active jobs due to the app being scaled down.
+
+Scale up redis if needed:
+```
+kubectl -n cnvrg scale deploy/redis --replicas 1
+```
 
 Get redis password from redis-creds secret:
 
