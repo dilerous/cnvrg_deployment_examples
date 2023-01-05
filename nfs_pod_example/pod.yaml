@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: nginx
+  name: nginx
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    volumeMounts:
+    - name: nfs-vol
+      mountPath: /var/nfs # The mountpoint inside the container
+  volumes:
+  - name: nfs-vol
+    nfs:
+      server: 192.168.7.47 # IP to our NFS server
+      path: /mnt/nfs_share_02 # The exported directory
