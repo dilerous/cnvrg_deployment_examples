@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debugger
+  namespace: cnvrg
+spec:
+  containers:
+  - name: debugger
+    image: bsoper/network-debugger:1.2
+    ports:
+    - containerPort: 80
+    command: ["sh", "-c", "tail -f /dev/null"]
