@@ -1,0 +1,88 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: dbs-backups
+  namespace: cnvrg
+spec:
+  schedule: "0 0 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: db-cron-job-pod
+            image: docker.io/cnvrg/network-debugger:1.2
+            imagePullPolicy: Always
+            env:
+            - name: CNVRG_STORAGE_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cp-object-storage
+                  key: CNVRG_STORAGE_ACCESS_KEY
+            - name: CNVRG_STORAGE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cp-object-storage
+                  key: CNVRG_STORAGE_SECRET_KEY
+            - name: CNVRG_STORAGE_BUCKET
+              valueFrom:
+                secretKeyRef:
+                  name: cp-object-storage
+                  key: CNVRG_STORAGE_BUCKET
+            - name: CNVRG_STORAGE_ENDPOINT
+              valueFrom:
+                secretKeyRef:
+                  name: cp-object-storage
+                  key: CNVRG_STORAGE_ENDPOINT
+            - name: CNVRG_STORAGE_TYPE
+              valueFrom:
+                secretKeyRef:
+                  name: cp-object-storage
+                  key: CNVRG_STORAGE_TYPE
+            - name: PG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pg-creds
+                  key: POSTGRES_PASSWORD
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-creds
+                  key: CNVRG_REDIS_PASSWORD
+            command:
+              - /bin/sh
+              - -c
+              - /script/dbs-backup.sh
+            volumeMounts:
+              - mountPath: "/backup-data"
+                name: backup-storage
+              - mountPath: "/script"
+                name: dbs-backup-script
+                readOnly: true
+              - mountPath: "/etc/secret"
+                name: secret-volume
+                readOnly: true
+          restartPolicy: OnFailure
+          volumes:
+          - name: backup-storage
+            persistentVolumeClaim:
+              claimName: capsule-v2
+          - name: dbs-backup-script
+            configMap:
+              name: dbs-backup-script
+              defaultMode: 0555
+          - name: secret-volume
+            secret:
+              secretName: redis-creds
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: capsule-v2
+  namespace: cnvrg
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Gi
