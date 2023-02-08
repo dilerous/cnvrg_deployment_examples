@@ -60,38 +60,36 @@ mc cp $PG_TAR $CNVRG_STORAGE_TYPE/$CNVRG_STORAGE_BUCKET/$PG_TAR
 echo "Number of backups to keep is set to:" ${NUM_BACKUP_KEEP}
 echo "Checking if older backups need to be deleted..."
 
-CURRENT_PG_NUM=$(mc ls minio/cnvrg-storage | grep pg-backup | wc -l)
-CURRENT_REDIS_NUM=$(mc ls minio/cnvrg-storage | grep redis-backup | wc -l)
+CURRENT_PG_NUM=$(mc ls $CNVRG_STORAGE_TYPE/$CNVRG_STORAGE_BUCKET | grep pg-backup | wc -l)
+CURRENT_REDIS_NUM=$(mc ls $CNVRG_STORAGE_TYPE/$CNVRG_STORAGE_BUCKET | grep redis-backup | wc -l)
 
 echo "Current number of Postgres backups is:" ${CURRENT_PG_NUM}
 echo "Current number of Redis backups is:" ${CURRENT_REDIS_NUM}
 
 while [ "$CURRENT_PG_NUM" -gt "$NUM_BACKUP_KEEP" ]
 do
-    PG_OLDEST_BACKUP=$(mc ls minio/cnvrg-storage | grep pg-backup | sort | head -n 1 | awk '{print $6}')
+    PG_OLDEST_BACKUP=$(mc ls $CNVRG_STORAGE_TYPE/$CNVRG_STORAGE_BUCKET | grep pg-backup | sort | head -n 1 | awk '{print $6}')
     echo "Deleting the oldest backup" $PG_OLDEST_BACKUP
-    mc rm minio/cnvrg-storage/$PG_OLDEST_BACKUP
-    CURRENT_PG_NUM=$(mc ls minio/cnvrg-storage | grep pg-backup | wc -l)
+    mc rm $CNVRG_STORAGE_TYPE/$CNVRG_STORAGE_BUCKET/$PG_OLDEST_BACKUP
+    CURRENT_PG_NUM=$(mc ls $CNVRG_STORAGE_TYPE/$CNVRG_STORAGE_BUCKET | grep pg-backup | wc -l)
 done
 echo "Finished cleaning up old Postgres backups"
 
 while [ "$CURRENT_REDIS_NUM" -gt "$NUM_BACKUP_KEEP" ]
 do
-    REDIS_OLDEST_BACKUP=$(mc ls minio/cnvrg-storage | grep redis-backup | sort | head -n 1 | awk '{print $6}')
+    REDIS_OLDEST_BACKUP=$(mc ls $CNVRG_STORAGE_TYPE/$CNVRG_STORAGE_BUCKET | grep redis-backup | sort | head -n 1 | awk '{print $6}')
     echo "Deleting the oldest backup" $REDIS_OLDEST_BACKUP
-    mc rm minio/cnvrg-storage/$REDIS_OLDEST_BACKUP
-    CURRENT_REDIS_NUM=$(mc ls minio/cnvrg-storage | grep redis-backup | wc -l)
+    mc rm $CNVRG_STORAGE_TYPE/$CNVRG_STORAGE_BUCKET/$REDIS_OLDEST_BACKUP
+    CURRENT_REDIS_NUM=$(mc ls $CNVRG_STORAGE_TYPE/$CNVRG_STORAGE_BUCKET | grep redis-backup | wc -l)
 done
 echo "Finished cleaning up old Redis backups"
 
 echo "Here is a list of your backups"
 echo "Postgres"
-mc ls minio/cnvrg-storage | grep pg-backup | awk '{print $6}'
+mc ls $CNVRG_STORAGE_TYPE/$CNVRG_STORAGE_BUCKET | grep pg-backup | awk '{print $6}'
 echo ""
 echo "Redis"
-mc ls minio/cnvrg-storage | grep redis-backup | awk '{print $6}'
-
-
+mc ls $CNVRG_STORAGE_TYPE/$CNVRG_STORAGE_BUCKET | grep redis-backup | awk '{print $6}'
 
 echo ""
 echo "Backup finished:"
