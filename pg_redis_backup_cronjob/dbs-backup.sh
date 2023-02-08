@@ -78,7 +78,7 @@ echo "Finished cleaning up old Postgres backups"
 while [ "$CURRENT_REDIS_NUM" -gt "$NUM_BACKUP_KEEP" ]
 do
     REDIS_OLDEST_BACKUP=$(mc ls minio/cnvrg-storage | grep redis-backup | sort | head -n 1 | awk '{print $6}')
-    echo "Deleting the oldest backup" $PG_OLDEST_BACKUP
+    echo "Deleting the oldest backup" $REDIS_OLDEST_BACKUP
     mc rm minio/cnvrg-storage/$REDIS_OLDEST_BACKUP
     CURRENT_REDIS_NUM=$(mc ls minio/cnvrg-storage | grep redis-backup | wc -l)
 done
