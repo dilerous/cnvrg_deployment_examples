@@ -17,7 +17,7 @@ helm install pgo oci://registry.developers.crunchydata.com/crunchydata/pgo \
 -n pgo --wait --create-namespace
 ```
 
-Now that the operator is running you need to deploy a PG cluster. 
+Now that the operator is running you need to deploy a PG cluster.
 
 Here is an example of a postgresCluster CR. This will deploy a postgres in HA.
 `cnvrg-pg.yaml`
@@ -166,7 +166,7 @@ retrieve postgres cluster creds:
 
 ```yaml
 HOST=$(kubectl -n pgo get secrets cnvrg-production-pguser-cnvrg \
---template={{.data.host}} | base64 -d) 
+--template={{.data.host}} | base64 -d)
 
 PASSWORD=$(kubectl -n pgo get secrets cnvrg-production-pguser-cnvrg \
 --template={{.data.password}} | base64 -d)
@@ -180,6 +180,28 @@ echo $PASSWORD
 ```yaml
 email:    <PG_USER>@pgo
 password: <PG_PASSWORD>
+```
+Next you need to create the pg-creds secret.
+```bash
+cat << EOF | kubectl apply -f -
+apiVersion: v1
+data:
+  POSTGRES_DB: Y252cmdfcHJvZHVjdGlvbg==
+  POSTGRES_HOST: cG9zdGdyZXM=
+  POSTGRES_PASSWORD: SU5ocTJzNU9qbmU3Yzhha3NyNkc=
+  POSTGRES_USER: Y252cmc=
+  POSTGRESQL_ADMIN_PASSWORD: SU5ocTJzNU9qbmU3Yzhha3NyNkc=
+  POSTGRESQL_DATABASE: Y252cmdfcHJvZHVjdGlvbg==
+  POSTGRESQL_EFFECTIVE_CACHE_SIZE: MjA0OE1C
+  POSTGRESQL_MAX_CONNECTIONS: NTAw
+  POSTGRESQL_PASSWORD: SU5ocTJzNU9qbmU3Yzhha3NyNkc=
+  POSTGRESQL_SHARED_BUFFERS: MTAyNE1C
+  POSTGRESQL_USER: Y252cmc=
+kind: Secret
+metadata:
+  name: pg-creds
+  namespace: cnvrg
+type: Opaque
 ```
 
 patch `pg-creds` secret:
@@ -258,7 +280,7 @@ GRANT ALL PRIVILEGES ON DATABASE cnvrg_production TO cnvrg;
 
 ### Connect to DB using port forwarding
 
-First grab one of the names of the production pods 
+First grab one of the names of the production pods
 
 ```jsx
 kubectl -n postgres get pods
@@ -278,7 +300,7 @@ cnvrg-production-repo-host-0                  2/2     Running     18 (17h ago)  
 Next you need to port forward the service with the command below
 
 ```jsx
-kubectl  -n postgres port-forward pod/cnvrg-production-pgha1-d8nq-0 :5432 
+kubectl  -n postgres port-forward pod/cnvrg-production-pgha1-d8nq-0 :5432
 ```
 
 Pay attention tot he randomly selected local port that was provided. In my example I can get to the DB using 127.0.0.1:51647
