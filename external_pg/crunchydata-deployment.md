@@ -27,7 +27,7 @@ apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
   name: cnvrg-production
-  namespace: pgo
+  namespace: cnvrg
 spec:
   patroni:
     dynamicConfiguration:
@@ -67,7 +67,7 @@ spec:
           requests:
             cpu: 100m
             memory: 100Mi
-            storage: 30Gi
+            storage: 80Gi
       affinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -109,7 +109,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: pgadmin
-  namespace: pgo
+  namespace: cnvrg
   labels:
     postgres-operator.crunchydata.com/data: pgadmin
 spec:
