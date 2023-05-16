@@ -1,0 +1,35 @@
+---
+clusterDomain: <domain-here>
+networking:
+  https:
+    enabled: true
+controlPlane:
+  webapp:
+    enabled: false
+  sidekiq:
+    enabled: false
+  searchkiq:
+    enabled: false
+  systemkiq:
+    enabled: false
+  hyper:
+    enabled: false
+
+logging:
+  elastalert:
+    enabled: false
+
+dbs:
+  minio:
+    enabled: false
+  redis:
+    enabled: false
+  pg:
+    enabled: false
+
+registry:
+  user: cnvrghelm
+  password: "<registry-user-password>"
+
+capsule:
+  enabled: false
