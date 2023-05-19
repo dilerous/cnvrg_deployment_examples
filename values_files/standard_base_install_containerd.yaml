@@ -2,7 +2,7 @@
 clusterDomain: "<wildcard-dns-domain>"
 
 controlPlane:
-  image: cnvrg/app:v3.12.17
+  image: cnvrg/app:v4.7.90
   baseConfig:
     featureFlags:
       CNVRG_MOUNT_HOST_FOLDERS: false
