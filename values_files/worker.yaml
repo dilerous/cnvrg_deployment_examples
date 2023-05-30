@@ -3,8 +3,11 @@ clusterDomain: <domain-here>
 networking:
   https:
     enabled: true
+    certSecret: web-tls
 controlPlane:
   webapp:
+    enabled: false
+  cnvrgScheduler:
     enabled: false
   sidekiq:
     enabled: false

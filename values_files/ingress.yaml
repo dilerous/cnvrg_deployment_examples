@@ -2,7 +2,7 @@
 clusterDomain:
 
 controlPlane:
-  image: cnvrg/app:v4.7.6
+  image: cnvrg/app:v4.7.96
 
 networking:
   ingress:
@@ -11,26 +11,6 @@ networking:
     enabled: false
 
 registry:
-  user: "cnvrghelm"
+  user: cnvrghelm
   password: ""
 
-monitoring:
-  prometheusOperator:
-    enabled: false
-  prometheus:
-    enabled: false
-  dcgmExporter:
-    enabled: false
-  kubeStateMetrics:
-    enabled: false
-  nodeExporter:
-    enabled: false
-  defaultServiceMonitors:
-    enabled: false
-
-
-logging:
-  fluentbit:
-    enabled: false
-  elastalert:
-    enabled: false

@@ -2,7 +2,7 @@
 clusterDomain: "<wildcard-dns-domain>"
 
 controlPlane:
-  image: cnvrg/app:v3.12.17
+  image: cnvrg/app:v4.7.90
 
 registry:
   user: <registry-user>
