@@ -2,7 +2,7 @@
 clusterDomain: "worker.dilerous.cloud"
 
 controlPlane:
-  image: cnvrg/app:v4.7.60
+  image: cnvrg/app:v4.7.100
   objectStorage:
     type: gcp
     gcpProject: <bucket-project>

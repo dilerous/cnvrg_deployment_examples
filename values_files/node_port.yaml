@@ -1,4 +1,4 @@
-clusterDomain: <node-ip>
+clusterDomain: <wildcard-domain>
 
 networking:
   ingress:
@@ -7,7 +7,7 @@ networking:
     enabled: false
 
 controlPlane:
-  image: cnvrg/app:v3.12.17
+  image: cnvrg/app:v4.7.100
 
 registry:
   user: <registry-user>

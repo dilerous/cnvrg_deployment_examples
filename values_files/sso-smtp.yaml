@@ -1,7 +1,7 @@
 ---
 clusterDomain: my.domain.cnvrg.me
 controlPlane:
-  image: cnvrg/app:v4.7.50
+  image: cnvrg/app:v4.7.100
   smtp:
     domain: cnvrg.io
     password: xxxx-x-x-x-x-x-xxx
