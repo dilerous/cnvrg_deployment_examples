@@ -5,41 +5,42 @@ Install Cert-Manager
 kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.8.2/cert-manager.yaml
 ```
 
-Clone down the goDaddy Webhook Repo
+Install the GoDaddy Webhook using Helm. Make sure to update the groupName with your domain.
 
 ```bash
-git clone git@github.com:snowdrop/godaddy-webhook.git
+helm repo add godaddy-webhook https://fred78290.github.io/cert-manager-webhook-godaddy/;
+helm repo update;
+
+helm upgrade -i godaddy-webhook godaddy-webhook/godaddy-webhook \
+    --set groupName=<update with your wildcard domain> \
+    --set image.tag=v1.27.1 \
+    --set image.pullPolicy=Always \
+    --namespace cert-manager
 ```
-
-Apply webhook yaml file to install godaddy webhook
-
-```bash
-kubectl apply -f ./deploy/webhook-all.yml
-```
-
-Go to ``https://developer.godaddy.com`` and create an API key and ID
-Put the key and id into the ``./worker_installs/secret.yml``
+Go to ``https://developer.godaddy.com`` and create an API key and Secret.
+Put the key and secret into the `secret.yaml`
+**Note: You need to base64 encode the API key and Secret before you add to the secret**
+`printf "<your api key>" | base64`
 
 Install Secret
 
 ```bash
-kubectl apply -f ./worker_installs/secret.yaml -n cert-manager
+kubectl apply -f secret.yaml
 ```
 
-Update then install the ClusterIssuer
+Update the email, dnsName and groupName and then apply the ClusterIssuer.
 
 ```bash
-kubectl apply -f clusterissuer.yml
+kubectl apply -f clusterissuer.yaml
 ```
 
-
-Update then install the certificate
+Update the dnsNames and then apply the certificate.
 
 ```bash
-kubectl apply -f certificate.yml -n cnvrg
+kubectl apply -f certificate.yaml
 ```
 
-Grab the external IP from svcs and update the host A record in goDaddy
+Grab the external IP from the ingress controller and update the host A record in goDaddy
 
 ```bash
 kubectl get svc -n cnvrg
