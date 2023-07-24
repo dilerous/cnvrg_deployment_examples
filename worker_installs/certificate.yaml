@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cnvrg-wildcard-tls
+  namespace: cnvrg
+spec:
+  secretName: cnvrg-wildcard-tls
+  renewBefore: 240h
+  dnsNames:
+  - '<wildcard dns entry>'
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
