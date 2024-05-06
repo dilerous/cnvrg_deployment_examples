@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: metagpu-job
+  namespace: cnvrg
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    metadata:
+      name: metagpu-job
+    spec:
+      template:
+        spec:
+          containers:
+          - name: metagpu-job
+            image: docker.io/bsoper/kubectl-job:1.0.0
+            imagePullPolicy: Always
+            command:
+              - /bin/sh
+              - -c
+              - |
+                kubectl patch ds metagpu-device-plugin --patch-file metagpu-ds-patch.yaml
+          restartPolicy: Never
+          serviceAccountName: cnvrg-job
