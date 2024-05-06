@@ -19,7 +19,7 @@ spec:
               - /bin/sh
               - -c
               - |
-                kubectl patch ds metagpu-device-plugin -p https://raw.githubusercontent.com/dilerous/cnvrg_deployment_examples/main/jobs/metagpu-ds-patch.yaml
-                sleep 500000
+                kubectl -n cnvrg patch ds metagpu-device-plugin -p '{"spec": {"template": {"spec": {"nodeSelector": null }}}}'
+                kubectl -n cnvrg patch ds metagpu-device-plugin -p '{"spec": {"template": {"spec": {"nodeSelector": {"metagpu": "present"}}}}}'
           restartPolicy: Never
           serviceAccountName: cnvrg-control-plane
